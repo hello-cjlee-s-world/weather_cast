@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% if message %}
+        {{message}}
+    {% else %}
+        측정날짜 : {{MSRDATE}}<br>
+        측정소명 : {{MSRSTENAME}}<br>
+        통합대기환경지수 : {{MAXINDEX}}<br>
+        통합대기환경지수 등급 : {{GRADE}}<br>
+        이산화질소 : {{NITROGEN}}<br>
+        오존 : {{OZONE}}<br>
+        미세먼지 : {{PM10}}<br>
+        초미세먼지 : {{PM25}}<br>
+    {% endif %}
+    
+{% endblock %}

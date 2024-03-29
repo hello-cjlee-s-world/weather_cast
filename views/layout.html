@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title>{{title}}</title>
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+
+    <form action="/" method="get">
+        <select name="guId">
+            <option value="">선택</option>
+            <option value="111123">종로구</option>
+            <option value="111121">중구</option>
+            <option value="111131">용산구</option>
+            <option value="111142">성동구</option>
+            <option value="111141">광진구</option>
+            <option value="111152">동대문구</option>
+            <option value="111151">중랑구</option>
+            <option value="111161">성북구</option>
+            <option value="111291">강북구</option>
+            <option value="111171">도봉구</option>
+            <option value="111311">노원구</option>
+            <option value="111181">은평구</option>
+            <option value="111191">서대문구</option>
+            <option value="111201">마포구</option>
+            <option value="111301">양천구</option>
+            <option value="111212">강서구</option>
+            <option value="111221">구로구</option>
+            <option value="111281">금천구</option>
+            <option value="111231">영등포구</option>
+            <option value="111241">동작구</option>
+            <option value="111251">관악구</option>
+            <option value="111262">서초구</option>
+            <option value="111261">강남구</option>
+            <option value="111273">송파구</option>
+            <option value="111274">강동구</option>
+        </select>
+        <button type="submit">클릭</button>
+    </form>
+
+    {% block script %}
+    {% endblock %}
+
+</body>
+</html>

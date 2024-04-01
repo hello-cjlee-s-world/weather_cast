@@ -7,7 +7,12 @@ var client_id = process.env.NAVER_CLIENT_ID; //개발자센터에서 발급받�
 var client_secret = process.env.NAVER_CLIENT_SECRET; //개발자센터에서 발급받은 Client Secret
 var query = encodeURI("https://developers.naver.com/docs/utils/shortenurl");
 
-// https://data.seoul.go.kr/dataList/OA-1200/S/1/datasetView.do 서울시 공공 데이터
+// router.get('/', async (req, res, next) => {
+//     res.render('main_css');
+// });
+
+
+https://data.seoul.go.kr/dataList/OA-1200/S/1/datasetView.do 서울시 공공 데이터
 router.get('/', async (req, res, next) => {
     try {
         var url = 'http://openAPI.seoul.go.kr:8088';
@@ -31,7 +36,7 @@ router.get('/', async (req, res, next) => {
             // console.log('Status', response.statusCode);
             // console.log('Headers', JSON.stringify(response.headers));
             jsonData = JSON.parse(body);
-            console.log(jsonData.ListAirQualityByDistrictService.row);
+            //console.log(jsonData.ListAirQualityByDistrictService.row);
             if(jsonData.ListAirQualityByDistrictService.hasOwnProperty('row')) {
                 const len = Object.keys(jsonData.ListAirQualityByDistrictService.row).length;
                 if(len > 1){
@@ -51,13 +56,15 @@ router.get('/', async (req, res, next) => {
                         OZONE += Number(row.OZONE);
                         PM10 += Number(row.PM10);
                         PM25 += Number(row.PM25);
+                        // 미세먼지 NAN으로 나오는 버그 있음 ==> 점검중으로 들어오는 값이 있음
+                        console.log(`PM10: ${PM10} ||  PM25: ${PM25}`);
                     });
                     MAXINDEX = Math.round(MAXINDEX/=len);
                     NITROGEN = (NITROGEN/=len).toFixed(3);
                     OZONE = (OZONE/=len).toFixed(3);
                     PM10 = Math.round(PM10/=len);;
                     PM25 = Math.round(PM25/=len);;
-
+                    
                     res.render('main', {
                         MSRDATE,
                         MSRSTENAME,

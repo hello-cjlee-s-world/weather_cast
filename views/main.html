@@ -1,16 +1,61 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {% if message %}
-        {{message}}
-    {% else %}
-        측정날짜 : {{MSRDATE}}<br>
-        측정소명 : {{MSRSTENAME}}<br>
-        통합대기환경지수 : {{MAXINDEX}}<br>
-        통합대기환경지수 등급 : {{GRADE}}<br>
-        이산화질소 : {{NITROGEN}}<br>
-        오존 : {{OZONE}}<br>
-        미세먼지 : {{PM10}}<br>
-        초미세먼지 : {{PM25}}<br>
-    {% endif %}
+{% if message %}
+    {{message}}
+{% else %}
+    <div id="headBox">
+        <div id="dateBox" class="headSmallBox">
+            <span>{{MSRDATE}}</span>
+        </div>       
+        <div id="locBox" class="headSmallBox">
+            <span>{{MSRSTENAME}}</span>
+        </div>
+    </div>
+    <div id="etcBox">
+        <div id="Image"><img src="/good.png"></div>
+        <div id="PM10" class="etcSmallBox"><span>미세먼지 : {{PM10}}</span></div>
+        <div id="PM25" class="etcSmallBox"><span>초미세먼지 : {{PM25}}</span></div>
+        <div id="NITROGEN" class="etcSmallBox"><span>이산화질소 : {{NITROGEN}}</span></div>
+        <div id="OZONE" class="etcSmallBox"><span>오존 : {{OZONE}}</span></div>
+    </div>
+    <div id="airTotalBox">
+        <div id="airIndexBox" class="totalSmallBox">
+            통합지수 : {{MAXINDEX}}
+        </div>
+        <div id="airGradeBox" class="totalSmallBox">
+            대기등급 : {{GRADE}}
+        </div>
+    </div>
+{% endif %}
     
+{% endblock %}
+
+{% block script %}
+
+<script>
+    window.onload = () => {
+        // 배경색 변경
+        const bd = document.body;
+        let c1 = Math.floor(Math.random() * 255).toString(16);
+        let c2 = Math.floor(Math.random() * 255).toString(16);
+        let c3 = Math.floor(Math.random() * 255).toString(16);
+        bd.style.backgroundColor = '#'+c1+c2+c3;
+        setInterval(() => {
+            c1 = Math.floor(Math.random() * 255).toString(16);
+            c2 = Math.floor(Math.random() * 255).toString(16);
+            c3 = Math.floor(Math.random() * 255).toString(16);
+            bd.style.backgroundColor = '#'+c1+c2+c3;
+        }, 4000);   
+        bd.style.transition = '4s';
+        bd.style.transitionDuration = '';
+
+        setInterval(() => {
+            const boxs = document.querySelectorAll('.etcSmallBox');
+            boxs.forEach(box => {
+                let fontsize = (Math.random() * 1.2 + 14.8).toFixed(3); 
+                box.firstElementChild.style.fontSize = `${fontsize}px`;
+            });
+        }, 1800); 
+    }
+</script>
 {% endblock %}

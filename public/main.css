@@ -6,18 +6,15 @@
     box-sizing: border-box;
     overflow: hidden;
 }
-
 html, body {
     width: 100%;
     height: 100%;
-    background-color: rgb(219, 224, 190);
 }
-
-
 #container {
     width: 100%;
     height: 100%;
-    background-color: blue;
+    padding-top: 50px;
+    background-color: black;
 }
 
 @media screen and (min-width:767px){
@@ -25,12 +22,9 @@ html, body {
         width: 50%;
         height: 100%;
         left: 50%;
+
         transform: translateX(-50%);
-        
         position: relative;
-
-        background-color: red;
-
     }
 }
 #headBox {
@@ -80,8 +74,6 @@ html, body {
     margin-top: 33px;
     position: relative;
     display: inline-block;
-
-    background-color: rgba(25, 128, 128, 0.43);
 }
 #etcBox img {
     width: 200px;
@@ -142,16 +134,43 @@ html, body {
 }
 #etcBox .etcSmallBox span {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
     color: white;
     transition: 1.5s;
 }
-
-
 #airTotalBox {
     width: 100%;
-    margin: 40px 0px 0px 0px;
+    height: 100px;
+    margin: 20px 0px 0px 0px;
 
     position: relative;
+    display: flex;
+
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+#airTotalBox .totalSmallBox {
+    width: 100%;
+    text-align: center;
+}
+#airTotalBox .totalSmallBox span {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+}
+#guIdBox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+#guIdBox select {
+    right: 0;
+    margin-right: 10px;
     display: inline-block;
+}
+#guIdBox button {
+    margin-right: 20px;
 }

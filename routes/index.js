@@ -8,7 +8,7 @@ var client_secret = process.env.NAVER_CLIENT_SECRET; //개발자센터에서 발
 var query = encodeURI("https://developers.naver.com/docs/utils/shortenurl");
 
 // router.get('/', async (req, res, next) => {
-//     res.render('main_css');
+//     res.render('main_lay');
 // });
 
 

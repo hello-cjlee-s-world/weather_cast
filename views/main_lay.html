@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/main.css">
+    <title>main_lay</title>
+</head>
+<body>
+
+
+<div id="container">
+
+    <div id="headBox">
+        <div id="dateBox" class="headSmallBox">
+            <span>202404011500</span>
+        </div>       
+        <div id="locBox" class="headSmallBox">
+            <span>영등포구</span>
+        </div>
+    </div>
+    <div id="etcBox">
+        <div id="imageBox"><img id="iconImage"></div>
+        <div id="PM10" class="etcSmallBox"><span>미세먼지 : 45</span></div>
+        <div id="PM25" class="etcSmallBox"><span>초미세먼지 : 14</span></div>
+        <div id="NITROGEN" class="etcSmallBox"><span>이산화질소 : 0.016</span></div>
+        <div id="OZONE" class="etcSmallBox"><span>오존 : 0.065</span></div>
+    </div>
+    <div id="airTotalBox">
+        <div id="airIndexBox" class="totalSmallBox">
+            <span>통합지수 : 79</span>
+        </div>
+        <div id="airGradeBox" class="totalSmallBox">
+            <span>대기등급 : 보통</span>
+        </div>
+    </div>
+
+
+    <form action="/" method="get">
+        <div id="guIdBox">
+            <select name="guId">
+                <option value="">선택</option>
+                <option value="111261">강남구</option>
+                <option value="111274">강동구</option>
+                <option value="111291">강북구</option>
+                <option value="111212">강서구</option>
+                <option value="111251">관악구</option>
+                <option value="111141">광진구</option>
+                <option value="111221">구로구</option>
+                <option value="111281">금천구</option>
+                <option value="111311">노원구</option>
+                <option value="111171">도봉구</option>
+                <option value="111152">동대문구</option>
+                <option value="111241">동작구</option>
+                <option value="111201">마포구</option>
+                <option value="111191">서대문구</option>
+                <option value="111262">서초구</option>
+                <option value="111142">성동구</option>
+                <option value="111161">성북구</option>
+                <option value="111273">송파구</option>
+                <option value="111301">양천구</option>
+                <option value="111231">영등포구</option>
+                <option value="111131">용산구</option>
+                <option value="111181">은평구</option>
+                <option value="111151">중랑구</option>
+                <option value="111123">종로구</option>
+                <option value="111121">중구</option>
+            </select>
+            <button type="submit">클릭</button>
+        </div>
+    </form>
+</div>
+</body>
+<input type="hidden" id="GRADE" value="{{GRADE}}">
+<script>
+    window.onload = () => {
+        // 배경색 변경
+        const grade = document.querySelector('#GRADE');
+        const container = document.querySelector('#container');
+        const icon = document.querySelector('#iconImage');
+        if( grade.value === '좋음') {
+            container.style.backgroundColor = 'rgb(42, 42, 197)';
+            icon.src='/good.png';
+        } else if (grade.value === '보통'){
+            console.log('ss');
+            container.style.backgroundColor = 'rgba(88, 251, 0, 0.905)';
+            icon.src='/soso.png';
+        } else if (grade.value === '나쁨'){
+            container.style.backgroundColor = 'rgb(240, 139, 56)';
+            icon.src='/bad.png';
+        }
+        
+ 
+        const bd = document.body;
+        let c1 = Math.floor(Math.random() * 255).toString(16);
+        let c2 = Math.floor(Math.random() * 255).toString(16);
+        let c3 = Math.floor(Math.random() * 255).toString(16);
+        bd.style.backgroundColor = '#'+c1+c2+c3;
+        setInterval(() => {
+            c1 = Math.floor(Math.random() * 255).toString(16);
+            c2 = Math.floor(Math.random() * 255).toString(16);
+            c3 = Math.floor(Math.random() * 255).toString(16);
+            bd.style.backgroundColor = '#'+c1+c2+c3;
+        }, 4000);   
+        bd.style.transition = '4s';
+        bd.style.transitionDuration = '';
+
+        setInterval(() => {
+            const boxs = document.querySelectorAll('.etcSmallBox');
+            boxs.forEach(box => {
+                let fontsize = (Math.random() * 1.2 + 14.8).toFixed(3); 
+                box.firstElementChild.style.fontSize = `${fontsize}px`;
+            });
+        }, 1800); 
+    }
+
+</script>
+</html>

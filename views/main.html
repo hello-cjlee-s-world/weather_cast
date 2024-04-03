@@ -12,7 +12,7 @@
         </div>
     </div>
     <div id="etcBox">
-        <div id="Image"><img src="/good.png"></div>
+        <div id="imageBox"><img id="iconImage" src="/soso.png"></div>
         <div id="PM10" class="etcSmallBox"><span>미세먼지 : {{PM10}}</span></div>
         <div id="PM25" class="etcSmallBox"><span>초미세먼지 : {{PM25}}</span></div>
         <div id="NITROGEN" class="etcSmallBox"><span>이산화질소 : {{NITROGEN}}</span></div>
@@ -20,12 +20,13 @@
     </div>
     <div id="airTotalBox">
         <div id="airIndexBox" class="totalSmallBox">
-            통합지수 : {{MAXINDEX}}
+            <span>통합지수 : {{MAXINDEX}}</span>
         </div>
         <div id="airGradeBox" class="totalSmallBox">
-            대기등급 : {{GRADE}}
+            <span>대기등급 : {{GRADE}}</span>
         </div>
     </div>
+    
 {% endif %}
     
 {% endblock %}
@@ -35,27 +36,44 @@
 <script>
     window.onload = () => {
         // 배경색 변경
+        const grade = document.querySelector('#GRADE');
+        const container = document.querySelector('#container');
+        const icon = document.querySelector('#iconImage');
         const bd = document.body;
-        let c1 = Math.floor(Math.random() * 255).toString(16);
-        let c2 = Math.floor(Math.random() * 255).toString(16);
-        let c3 = Math.floor(Math.random() * 255).toString(16);
-        bd.style.backgroundColor = '#'+c1+c2+c3;
-        setInterval(() => {
-            c1 = Math.floor(Math.random() * 255).toString(16);
-            c2 = Math.floor(Math.random() * 255).toString(16);
-            c3 = Math.floor(Math.random() * 255).toString(16);
-            bd.style.backgroundColor = '#'+c1+c2+c3;
-        }, 4000);   
-        bd.style.transition = '4s';
-        bd.style.transitionDuration = '';
+        if( grade.value === '좋음') {
+            container.style.backgroundColor = 'rgb(42, 42, 197)';
+            bd.style.backgroundColor = 'rgb(42, 42, 197)';
+            icon.src='/good.png';
+        } else if (grade.value === '보통'){
+            console.log('ss');
+            container.style.backgroundColor = 'rgba(88, 251, 0, 0.905)';
+            bd.style.backgroundColor = 'rgba(88, 251, 0, 0.905)';
+            icon.src='/soso.png';
+        } else if (grade.value === '나쁨'){
+            container.style.backgroundColor = 'rgb(240, 139, 56)';
+            bd.style.backgroundColor = 'rgb(240, 139, 56)';
+            icon.src='/bad.png';
+        }
+        // let c1 = Math.floor(Math.random() * 255).toString(16);
+        // let c2 = Math.floor(Math.random() * 255).toString(16);
+        // let c3 = Math.floor(Math.random() * 255).toString(16);
+        // bd.style.backgroundColor = '#'+c1+c2+c3;
+        // setInterval(() => {
+        //     c1 = Math.floor(Math.random() * 255).toString(16);
+        //     c2 = Math.floor(Math.random() * 255).toString(16);
+        //     c3 = Math.floor(Math.random() * 255).toString(16);
+        //     bd.style.backgroundColor = '#'+c1+c2+c3;
+        // }, 4000);   
+        // bd.style.transition = '4s';
+        // bd.style.transitionDuration = '';
 
         setInterval(() => {
             const boxs = document.querySelectorAll('.etcSmallBox');
             boxs.forEach(box => {
-                let fontsize = (Math.random() * 1.2 + 14.8).toFixed(3); 
+                let fontsize = (Math.random() * 1.5 + 15.5).toFixed(3); 
                 box.firstElementChild.style.fontSize = `${fontsize}px`;
             });
-        }, 1800); 
+        }, 1600); 
     }
 </script>
 {% endblock %}

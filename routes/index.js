@@ -41,32 +41,59 @@ router.get('/', async (req, res, next) => {
                 const len = Object.keys(jsonData.ListAirQualityByDistrictService.row).length;
                 if(len > 1){
                     const rows = jsonData.ListAirQualityByDistrictService.row;
-                    let MSRDATE = rows[0].MSRDATE;
-                    let MSRSTENAME = '서울시 통합 대기지수';
+                    const msr = rows[0].MSRDATE;
+                    const day = `${Number(msr.slice(4,6))}월${Number(msr.slice(6,8))}일`;
+                    const time = `${Number(msr.slice(8,10))}:00`;
+                    let MSRSTENAME = '서울시';
                     let MAXINDEX = 0;
                     let GRADE = '';
                     let NITROGEN = 0;
                     let OZONE = 0;
                     let PM10 = 0;
                     let PM25 = 0;
-
+                    let cntMAXINDEX = 0;
+                    let cntNITROGEN = 0;
+                    let cntOZONE = 0;
+                    let cnt10 = 0;
+                    let cnt25 = 0;
                     rows.forEach(row => {
-                        MAXINDEX += Number(row.MAXINDEX);
-                        NITROGEN += Number(row.NITROGEN);
-                        OZONE += Number(row.OZONE);
-                        PM10 += Number(row.PM10);
-                        PM25 += Number(row.PM25);
-                        // 미세먼지 NAN으로 나오는 버그 있음 ==> 점검중으로 들어오는 값이 있음
-                        console.log(`PM10: ${PM10} ||  PM25: ${PM25}`);
+                        if(row.MAXINDEX !== '점검중'){
+                            MAXINDEX += Number(row.MAXINDEX);
+                            cntMAXINDEX += 1;
+                        }
+                        if(row.NITROGEN !== '점검중'){
+                            NITROGEN += Number(row.NITROGEN);
+                            cntNITROGEN += 1;
+                        }
+                        if(row.OZONE !== '점검중'){
+                            OZONE += Number(row.OZONE);
+                            cntOZONE += 1;
+                        }
+                        if(row.PM10 !== '점검중'){
+                            PM10 += Number(row.PM10);
+                            cnt10 += 1;
+                        }
+                        if(row.PM25 !== '점검중'){
+                            PM25 += Number(row.PM25);
+                            cnt25 += 1;
+                        }
+                        console.log(row.GRADE);
                     });
-                    MAXINDEX = Math.round(MAXINDEX/=len);
-                    NITROGEN = (NITROGEN/=len).toFixed(3);
-                    OZONE = (OZONE/=len).toFixed(3);
-                    PM10 = Math.round(PM10/=len);;
-                    PM25 = Math.round(PM25/=len);;
-                    
+                    MAXINDEX = Math.round(MAXINDEX/=cntMAXINDEX);
+                    NITROGEN = (NITROGEN/=cntNITROGEN).toFixed(3);
+                    OZONE = (OZONE/=cntOZONE).toFixed(3);
+                    PM10 = Math.round(PM10/=cnt10);
+                    PM25 = Math.round(PM25/=cnt25);
+                    if (MAXINDEX < 30) {
+                        GRADE = '좋음';
+                    } else if (MAXINDEX < 80){
+                        GRADE = '보통';
+                    } else{
+                        GRADE = '나쁨';
+                    }
                     res.render('main', {
-                        MSRDATE,
+                        day : day,
+                        time : time,
                         MSRSTENAME,
                         MAXINDEX,
                         GRADE,
@@ -77,8 +104,12 @@ router.get('/', async (req, res, next) => {
                         });
                 } else {
                     const row = jsonData.ListAirQualityByDistrictService.row[0];
+                    const msr = row.MSRDATE;
+                    const day = `${Number(msr.slice(4,6))}월${Number(msr.slice(6,8))}일`;
+                    const time = `${Number(msr.slice(8,10))}:00`;
                     res.render('main', {
-                        MSRDATE : row.MSRDATE,
+                        day : day,
+                        time : time,
                         MSRSTENAME : row.MSRSTENAME,
                         MAXINDEX: row.MAXINDEX,
                         GRADE: row.GRADE,

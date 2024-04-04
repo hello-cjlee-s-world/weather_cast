@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app"
+    "start": "cross-env NODE_ENV=production PORT=8000 pm2 start app.js",
+    "devstart": "nodemon app"
   },
   "author": "cndwn213",
   "license": "ISC",
@@ -14,14 +14,19 @@
     "color-hash": "^2.0.2",
     "cookie-parser": "^1.4.6",
     "cookie-signature": "^1.2.1",
+    "cross-env": "^7.0.3",
+    "csurf": "^1.11.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
     "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "hpp": "^0.2.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.9.2",
     "nunjucks": "^3.2.4",
     "request": "^2.88.2",
+    "sanitize-html": "^2.13.0",
     "socket.io": "^2.5.0",
     "ws": "^8.16.0"
   },

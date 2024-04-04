@@ -33,10 +33,8 @@ router.get('/', async (req, res, next) => {
         };
 
         request(option, (error, response, body) => {
-            // console.log('Status', response.statusCode);
-            // console.log('Headers', JSON.stringify(response.headers));
             jsonData = JSON.parse(body);
-            //console.log(jsonData.ListAirQualityByDistrictService.row);
+            let title = '서울시 대기 현황';
             if(jsonData.ListAirQualityByDistrictService.hasOwnProperty('row')) {
                 const len = Object.keys(jsonData.ListAirQualityByDistrictService.row).length;
                 if(len > 1){
@@ -100,7 +98,8 @@ router.get('/', async (req, res, next) => {
                         NITROGEN,
                         OZONE,
                         PM10,
-                        PM25
+                        PM25,
+                        title
                         });
                 } else {
                     const row = jsonData.ListAirQualityByDistrictService.row[0];
@@ -116,7 +115,8 @@ router.get('/', async (req, res, next) => {
                         NITROGEN: row.NITROGEN,
                         OZONE: row.OZONE,
                         PM10: row.PM10,
-                        PM25: row.PM25
+                        PM25: row.PM25,
+                        title : MSRSTENAME + ' 대기현황'
                         });
                 }
             } else {
